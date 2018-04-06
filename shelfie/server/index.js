@@ -13,4 +13,9 @@ const express = require('express')
         app.set('db', dbInstance)
     });
 
+    app.get('/api/inventory', controller.read)
+
+    app.post('/api/inventory', controller.create)
+
+
     app.listen(4000, () => console.log('listening'));

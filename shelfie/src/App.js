@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 import Dashboard from './dashboard/Dashboard';
 import Form from './form/Form';
 import Header from './header/Header';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
 
 
@@ -11,14 +13,17 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
+        products: [],
         image_Url: '',
         name: '',
-        price: 0
+        price: 0,
+        serverUrl: "http://localhost:4000"
     }
 
     this.updateName = this.updateName.bind(this);
     this.updateImage_Url = this.updateImage_Url.bind(this);
     this.updatePrice = this.updatePrice.bind(this);
+    this.addProduct = this.addProduct.bind(this);
 }
 
 
@@ -40,19 +45,33 @@ updatePrice(value){
   })
 }
 
+addProduct(){
+  this.setState({
+    products: [...this.state.products, this.state.name],
+    name: ''
+  })
+}
+
 
   render() {
 
 
     return (
-      <div className="App">
-       <Dashboard />
-       <Form updateName = {this.updateName}
-             updateImage_Url = {this.updateImage_Url}
-             updatePrice = {this.updatePrice}/>
-       <Header />
-       
-      </div>
+      // <div className="App">
+      
+      //  <Form updateName = {this.updateName}
+      //        updateImage_Url = {this.updateImage_Url}
+      //        updatePrice = {this.updatePrice}
+      //        addProduct = {this.addProduct}/>
+      //  <Header />
+      //  {this.state.products}
+      // </div>
+      <HashRouter>
+        <Switch>
+           <Route path = '/' component = {Dashboard} exact />
+           <Route path = '/add' component = {Form} />
+        </Switch>
+      </HashRouter>
     );
   }
 }
