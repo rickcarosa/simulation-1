@@ -13,6 +13,8 @@ class Form extends Component{
       } 
 
     render(){
+
+
         return(
             <div className = "Form">
                 <Link to = '/add'> <button> Form </button> </Link>

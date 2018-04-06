@@ -47,8 +47,15 @@ updatePrice(value){
 
 addProduct(){
   this.setState({
-    products: [...this.state.products, this.state.name],
-    name: ''
+    products: [this.state.products, this.state.name, this.state.price, this.state.image_Url]
+  })
+}
+
+delete(id){
+  axios.delete(`${this.state.serverUrl}/api/inventory/${id}`).then( response => {
+    this.setState({
+      products: response.data
+    })
   })
 }
 
@@ -66,12 +73,14 @@ addProduct(){
       //  <Header />
       //  {this.state.products}
       // </div>
+      
       <HashRouter>
         <Switch>
            <Route path = '/' component = {Dashboard} exact />
            <Route path = '/add' component = {Form} />
         </Switch>
       </HashRouter>
+      
     );
   }
 }

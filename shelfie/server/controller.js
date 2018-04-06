@@ -1,3 +1,5 @@
+
+
 const axios = require('axios');
 
 let inventory = [];
@@ -19,4 +21,28 @@ module.exports = {
         console.log(inventory)
         response.status(200).send(inventory)
     },
+
+    // update: (request,response) => {
+    //     let index = null;
+    //     inventory.forEach((product, i) => {
+    //         if(product.id === (+request.params.id)) index = i; 
+    //     })
+    //     inventory[ index ] = {
+    //         id: inventory[index].id,
+    //         name: request.body.text || inventory[index].name,
+    //         price: request.body.price    
+    //     };
+    //     response.status(200).send(inventory);
+
+    // },
+
+    delete: (request, response) => {
+        let index = null;
+        inventory.forEach((product, i) => {
+            if(product.id === Number(request.params.id)) index = i;
+        
+    })
+            inventory.splice(index, 1)
+            response.status(200).send(inventory);
+    }
 }

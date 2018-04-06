@@ -17,5 +17,8 @@ const express = require('express')
 
     app.post('/api/inventory', controller.create)
 
+    // app.update('/api/inventory/:id', controller.update)
+
+    app.delete('/api/inventory/:id', controller.delete)
 
     app.listen(4000, () => console.log('listening'));
