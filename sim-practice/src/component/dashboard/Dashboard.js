@@ -5,10 +5,21 @@ class Dashboard extends Component {
 
 
     render(){
+
+        const list = this.props.list.map((product) => {
+            return( 
+                <div key = { product.id } > 
+                    <Product product = {product}/>
+               
+                </div>
+            )
+        })
+
         return(
             <div className = "Dashboard">
-                Dashboard
-                <Product />
+            
+                
+                <ul> {list} </ul>
             </div>
         )
     }

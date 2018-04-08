@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Form extends Component {
     constructor(){
@@ -8,6 +9,7 @@ class Form extends Component {
             price: 0,
             image: ''
         }
+
     }
 
     updateName(value){
@@ -29,21 +31,34 @@ class Form extends Component {
       }
 
       cancel(){
+          console.log("click")
         this.setState({
             name: '',
-            price: 0,
+            price: '',
             image: ''
+        });
+        console.log(this.state.name)
+      }
+
+      add(product){
+        axios.post(`${this.props.serverUrl}/api/product`, {product}).then( response => {
+          this.setState({
+            list: response.data
+          })
         })
       }
 
     render(){
         return(
             <div className = "Form">
-                <input onChange = { (event) => this.updateName(event.target.value)}/>
-                <input onChange = { (event) => this.updateImage(event.target.value)}/>
-                <input onChange = { (event) => this.updatePrice(event.target.value)}/>
-                <button className = "Cancel" onClick = {() => {this.cancel()}} > Cancel </button>
-                <button className = "Add" > Add to Inventory </button>
+                <p> Image URL: </p>
+                <input value = {this.state.image} onChange = { (event) => this.updateImage(event.target.value)}/>
+                <p> Product Name: </p>
+                <input value = {this.state.name} onChange = { (event) => this.updateName(event.target.value)}/>
+                <p> Price: </p>
+                <input value = {this.state.price} onChange = { (event) => this.updatePrice(event.target.value)}/>
+                <button className = "Cancel" onClick = { () => {this.cancel()}} > Cancel </button>
+                <button className = "Add" onClick = { () => {this.add()}} > Add to Inventory </button>
             </div>
         )
     }
