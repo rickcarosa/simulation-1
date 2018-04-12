@@ -27,27 +27,22 @@ module.exports = {
             })
     },
 
-    // update: (request,response) => {
-    //     let index = null;
-    //     inventory.forEach((product, i) => {
-    //         if(product.id === (+request.params.id)) index = i; 
-    //     })
-    //     inventory[ index ] = {
-    //         id: inventory[index].id,
-    //         name: request.body.text || inventory[index].name,
-    //         price: request.body.price    
-    //     };
-    //     response.status(200).send(inventory);
+    update: (request,response) => {
+        let id = request.params.id
+        let dbInstance = request.app.get('db')
+        let {name, price, image} = request.body
 
-    // },
+        dbInstance.update_product([id, name, price, image]).then(results => {
+            response.send(results)
+        })
+    },
 
-    // delete: (request, response) => {
-    //     let index = null;
-    //     inventory.forEach((product, i) => {
-    //         if(product.id === Number(request.params.id)) index = i;
-        
-    // })
-    //         inventory.splice(index, 1)
-    //         response.status(200).send(inventory);
-    // }
+    delete: (request, response) => {
+        let id = request.params.id
+        let dbInstance = request.app.get('db')
+
+        dbInstance.delete_product([id]).then(() => {
+            response.sendStatus(200)
+        })
+    }
 }

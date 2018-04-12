@@ -6,7 +6,7 @@ class Form extends Component {
         super()
         this.state = {
             name: '',
-            price: 0,
+            price: '',
             image: ''
         }
 
@@ -40,12 +40,18 @@ class Form extends Component {
         console.log(this.state.name)
       }
 
-      add(product){
-        axios.post(`${this.props.serverUrl}/api/product`, {product}).then( response => {
-          this.setState({
-            list: response.data
+      add = (name, price, image) => {
+          axios.post(`${this.props.serverUrl}/api/product`, {name: this.state.name, price: this.state.price, image: this.state.image})
+      }
+
+      saveChanges(id, values){
+          let body = { name: this.state.name, price: this.state.price, image: this.state.image}
+
+          axios.put(`${this.props.serverUrl}/api/product/${id}`, body).then( response => {
+              this.setState({
+                  products: response.data
+              })
           })
-        })
       }
 
     render(){
@@ -56,7 +62,7 @@ class Form extends Component {
                 <p> Product Name: </p>
                 <input value = {this.state.name} onChange = { (event) => this.updateName(event.target.value)}/>
                 <p> Price: </p>
-                <input value = {this.state.price} onChange = { (event) => this.updatePrice(event.target.value)}/>
+                <input type = "number" value = {this.state.price} onChange = { (event) => this.updatePrice(event.target.value)}/>
                 <button className = "Cancel" onClick = { () => {this.cancel()}} > Cancel </button>
                 <button className = "Add" onClick = { () => {this.add()}} > Add to Inventory </button>
             </div>

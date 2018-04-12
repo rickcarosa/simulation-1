@@ -7,7 +7,11 @@ function Product(props){
     return(
         <div className = "Product">
             
-            <h3 key={ id }> { name } { price } { image } </h3>
+            <h3> { name } </h3>
+            <h3> { price } </h3>
+            <img src = {image} alt = {name}/>
+            <button onClick = { () => props.deleteProduct(id)}> Delete </button>
+
         </div>      
     )
 }

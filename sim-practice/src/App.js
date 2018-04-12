@@ -13,23 +13,31 @@ class App extends Component {
         inventory: [],
         serverUrl: "http://localhost:4000"
       }
+
+      this.getInventory = this.getInventory.bind(this);
+
     }
 
     componentDidMount(){ 
-      axios.get(`${this.state.serverUrl}/api/inventory`).then( response => {  //on componentDidMount, if you get Access Control Allow Origin error you need to "npm install cors" on the server side 
-        this.setState({
-          inventory: response.data
-        })
-      })
+      this.getInventory()
     } 
 
-    
+    getInventory(){
+      axios.get(`${this.state.serverUrl}/api/inventory`).then( response => {  //on componentDidMount, if you get Access Control Allow Origin error you need to "npm install cors" on the server side 
+      this.setState({
+        inventory: response.data
+    })
+  })
+}
 
   render() {
     return (
       <div className="App">
-        <Dashboard list = {this.state.inventory}/>
-        <Form />
+        <Dashboard list = {this.state.inventory}
+                   getInventory = {this.getInventory}
+                   serverUrl = {this.state.serverUrl}/>
+        <Form add = {this.state.inventory}
+              serverUrl = {this.state.serverUrl}/>
         <Header />
       </div>
     );

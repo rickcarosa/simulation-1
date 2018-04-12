@@ -19,8 +19,8 @@ const express = require('express')
 
     app.post('/api/product', controller.create)
 
-    // app.update('/api/inventory/:id', controller.update)
+    app.put('/api/product/:id', controller.update)
 
-    // app.delete('/api/inventory/:id', controller.delete)
+    app.delete('/api/product/:id', controller.delete)
 
     app.listen(4000, () => console.log('listening'));
